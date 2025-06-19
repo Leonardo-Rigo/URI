@@ -3,7 +3,8 @@
 #include <ctime>
 #include <iomanip>
 #include <locale>
-#define TAM 5
+#include <unistd.h>
+#define TAM 4
 
 using namespace std;
 
@@ -28,8 +29,7 @@ srand(time(0));
         if (tabuleiro[RandLinha][RandColuna] == '~') {
             tabuleiro[RandLinha][RandColuna] = '#';
             navios++;
-        }
-    }
+}}
 
     // Colocar 1 submarino '*'
     bool colocado = false;
@@ -39,8 +39,7 @@ srand(time(0));
         if (tabuleiro[RandLinha][RandColuna] == '~') {
             tabuleiro[RandLinha][RandColuna] = '*';
             colocado = true;
-}
-}
+}}
 
     // Colocar 1 porta-aviões '!'
     colocado = false;
@@ -50,8 +49,7 @@ srand(time(0));
         if (tabuleiro[RandLinha][RandColuna] == '~') {
             tabuleiro[RandLinha][RandColuna] = '!';
             colocado = true;
-}
-}
+}}
 
     // Tabuleiro para mostrar ao jogador: só marca jogadas
 char display[TAM][TAM];
@@ -85,26 +83,13 @@ while (true) {
 cout << "\nJogada " << jogadaNum << endl;
         int linha;
         char coluna;
-cout << "Linha (1-" << TAM << "): ";
+cout << "Linhas: (1-" << TAM << "): ";
 cin >> linha;
-cout << "Coluna (A-" << (char)('A'+TAM-1) << "): ";
+cout << "Colunas: (A-" << (char)('A'+TAM-1) << "): ";
 cin >> coluna;
 
 int colunaIndex = toupper(coluna) - 'A';
 
-if (linha < 1 || linha > TAM || colunaIndex < 0 || colunaIndex >= TAM) {
-    cout << "Jogada inválida! Pressione ENTER para tentar novamente." << endl;
-    cin.ignore();
-    cin.get();
-    continue;
-}
-
-if (display[linha-1][colunaIndex] != '~') {
-    cout << "Você já jogou nessa posição! Pressione ENTER para tentar novamente." << endl;
-    cin.ignore();
-    cin.get();
-    continue;
-}
 
         // Verifica o que tem no tabuleiro real
 if (tabuleiro[linha - 1][colunaIndex] == '#') {
@@ -134,15 +119,7 @@ if (naviosRestantes == 0 && submarinoRestante == 0 && portaAvioesRestante == 0) 
     cout << "\nParabéns! Você afundou todos os navios!" << endl;
 break;
 }
-
-cout << "\nDeseja continuar jogando? (S/N): ";
-    char resposta;
-cin >> resposta;
-    if (resposta != 'S' && resposta != 's') {
-cout << "Jogo encerrado. Obrigado por jogar!" << endl;
-break;
-    }
+ sleep(3);
 }
-
 return 0;
 }
